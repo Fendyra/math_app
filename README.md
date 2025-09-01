@@ -1,4 +1,4 @@
-# bermain_logika
+# math_app
 
 A new Flutter project.
 
