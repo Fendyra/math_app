@@ -10,6 +10,7 @@ class _MathOperationsPageState extends State<MathOperationsPage> {
   final num1Controller = TextEditingController();
   final num2Controller = TextEditingController();
   String result = '';
+  List<String> history = []; // untuk menyimpan riwayat perhitungan
 
   void calculate(String operation) {
     double a = double.tryParse(num1Controller.text) ?? 0;
@@ -23,26 +24,30 @@ class _MathOperationsPageState extends State<MathOperationsPage> {
       case '-':
         res = a - b;
         break;
-      case '×':
       case '*':
         res = a * b;
         break;
-      case '÷':
       case '/':
         res = b != 0 ? a / b : double.infinity;
         break;
     }
 
     setState(() {
-      result = res == double.infinity ? "Tidak bisa dibagi 0" : "Hasil: $res";
+      if (res == double.infinity) {
+        result = "Tidak bisa dibagi 0";
+      } else {
+        result = "Hasil: $res";
+        history.insert(0, "$a $operation $b = $res"); // simpan ke history
+      }
     });
   }
 
-  void clearFields() {
+  void clear() {
     setState(() {
       num1Controller.clear();
       num2Controller.clear();
       result = '';
+      history.clear();
     });
   }
 
@@ -50,7 +55,10 @@ class _MathOperationsPageState extends State<MathOperationsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Operasi Matematika"),
+        title: Text(
+          "Operasi Matematika",
+          style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
+        ),
         centerTitle: true,
         backgroundColor: Colors.grey,
       ),
@@ -110,8 +118,20 @@ class _MathOperationsPageState extends State<MathOperationsPage> {
                       _buildOperationButton("-", Colors.deepOrange),
                       _buildOperationButton("×", Colors.green),
                       _buildOperationButton("÷", Colors.purple),
-                      _buildClearButton(),
                     ],
+                  ),
+                  SizedBox(height: 16),
+                  ElevatedButton.icon(
+                    onPressed: clear,
+                    icon: Icon(Icons.clear),
+                    label: Text("Clear"),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.redAccent,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: EdgeInsets.symmetric(vertical: 14),
+                    ),
                   ),
                   SizedBox(height: 30),
                   if (result.isNotEmpty)
@@ -125,8 +145,7 @@ class _MathOperationsPageState extends State<MathOperationsPage> {
                         padding: EdgeInsets.all(16),
                         child: Text(
                           result,
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
+                          style: GoogleFonts.poppins(
                             fontSize: 20,
                             fontWeight: FontWeight.w600,
                             color: Colors.indigo.shade900,
@@ -135,6 +154,33 @@ class _MathOperationsPageState extends State<MathOperationsPage> {
                         ),
                       ),
                     ),
+                  if (history.isNotEmpty) ...[
+                    SizedBox(height: 20),
+                    Text(
+                      "Riwayat Perhitungan",
+                      style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.deepPurple,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 10),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: history.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          leading: Icon(Icons.history, color: Colors.indigo),
+                          title: Text(
+                            history[index],
+                            style: GoogleFonts.poppins(fontSize: 14),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 ],
               ),
             ),
@@ -158,34 +204,8 @@ class _MathOperationsPageState extends State<MathOperationsPage> {
         ),
         child: Text(
           symbol,
-          style: TextStyle(
+          style: GoogleFonts.poppins(
             fontSize: 20,
-            fontFamily: 'Poppins',
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildClearButton() {
-    return SizedBox(
-      width: 80,
-      height: 50,
-      child: ElevatedButton(
-        onPressed: clearFields,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.red,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-        child: Text(
-          "Clear",
-          style: TextStyle(
-            fontSize: 13,
-            fontFamily: 'Poppins',
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
