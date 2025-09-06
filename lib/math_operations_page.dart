@@ -26,72 +26,128 @@ class _MathOperationsPageState extends State<MathOperationsPage> {
         res = a * b;
         break;
       case '/':
-        res = b != 0 ? a / b : 0;
+        res = b != 0 ? a / b : double.infinity;
         break;
     }
 
     setState(() {
-      result = "Hasil: $res";
+      result = res == double.infinity ? "Tidak bisa dibagi 0" : "Hasil: $res";
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.all(20),
       children: [
         Card(
-          elevation: 6,
+          elevation: 8,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(20),
           ),
           child: Padding(
-            padding: EdgeInsets.all(16),
+            padding: EdgeInsets.all(20),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                Text(
+                  "Operasi Matematika",
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.indigo,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 20),
                 TextField(
                   controller: num1Controller,
-                  decoration: InputDecoration(labelText: "Angka 1"),
                   keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: "Angka 1",
+                    prefixIcon: Icon(Icons.looks_one),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
                 ),
-                SizedBox(height: 12),
+                SizedBox(height: 16),
                 TextField(
                   controller: num2Controller,
-                  decoration: InputDecoration(labelText: "Angka 2"),
                   keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: "Angka 2",
+                    prefixIcon: Icon(Icons.looks_two),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 24),
                 Wrap(
-                  spacing: 10,
+                  spacing: 12,
+                  runSpacing: 12,
+                  alignment: WrapAlignment.center,
                   children: [
-                    ElevatedButton(
-                      onPressed: () => calculate('+'),
-                      child: Text("+"),
-                    ),
-                    ElevatedButton(
-                      onPressed: () => calculate('-'),
-                      child: Text("-"),
-                    ),
-                    ElevatedButton(
-                      onPressed: () => calculate('*'),
-                      child: Text("×"),
-                    ),
-                    ElevatedButton(
-                      onPressed: () => calculate('/'),
-                      child: Text("÷"),
-                    ),
+                    _buildOperationButton("+", Colors.indigo),
+                    _buildOperationButton("-", Colors.deepOrange),
+                    _buildOperationButton("×", Colors.green),
+                    _buildOperationButton("÷", Colors.purple),
                   ],
                 ),
-                SizedBox(height: 20),
-                Text(
-                  result,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
+                SizedBox(height: 30),
+                if (result.isNotEmpty)
+                  Card(
+                    color: Colors.indigo.shade50,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    elevation: 3,
+                    child: Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Text(
+                        result,
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.indigo.shade900,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildOperationButton(String symbol, Color color) {
+    return SizedBox(
+      width: 70,
+      height: 50,
+      child: ElevatedButton(
+        onPressed: () => calculate(symbol),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: color,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        child: Text(
+          symbol,
+          style: TextStyle(
+            fontSize: 20,
+            fontFamily: 'Poppins',
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
     );
   }
 }
