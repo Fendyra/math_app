@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.indigo,
         elevation: 4,
         // shape: RoundedRectangleBorder(
-        //   borderRadius: BorderRadius.vertical(bottom: Radius.circular(16)),
+        // borderRadius: BorderRadius.vertical(bottom: Radius.circular(16)),
         // ),
       ),
       body: AnimatedSwitcher(
