@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: Text(
-          "Halo, ${widget.username} 👋",
+          "Halo, ${widget.username}",
           style: TextStyle(
             fontFamily: 'Poppins',
             fontWeight: FontWeight.w600,
