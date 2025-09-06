@@ -12,6 +12,11 @@ class _MathOperationsPageState extends State<MathOperationsPage> {
   String result = '';
   List<String> history = []; // untuk menyimpan riwayat perhitungan
 
+  /// Fungsi untuk format hasil: kalau bulat -> int, kalau desimal -> double
+  String formatNumber(double value) {
+    return (value % 1 == 0) ? value.toInt().toString() : value.toString();
+  }
+
   void calculate(String operation) {
     double a = double.tryParse(num1Controller.text) ?? 0;
     double b = double.tryParse(num2Controller.text) ?? 0;
@@ -36,8 +41,12 @@ class _MathOperationsPageState extends State<MathOperationsPage> {
       if (res == double.infinity) {
         result = "Tidak bisa dibagi 0";
       } else {
-        result = "Hasil: $res";
-        history.insert(0, "$a $operation $b = $res"); // simpan ke history
+        String displayA = formatNumber(a);
+        String displayB = formatNumber(b);
+        String displayRes = formatNumber(res);
+
+        result = "Hasil: $displayRes";
+        history.insert(0, "$displayA $operation $displayB = $displayRes");
       }
     });
   }
