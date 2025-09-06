@@ -103,7 +103,7 @@ class AnggotaCard extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Row(
           children: [
-            Icon(Icons.account_circle, size: 80, color: Colors.indigo),
+            Icon(Icons.account_circle, size: 80, color: Colors.deepPurple),
             // CircleAvatar(
             //   radius: 35,
             //   backgroundImage: NetworkImage(anggota.fotoUrl),
