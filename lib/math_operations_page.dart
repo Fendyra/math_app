@@ -116,8 +116,8 @@ class _MathOperationsPageState extends State<MathOperationsPage> {
                     children: [
                       _buildOperationButton("+", Colors.indigo),
                       _buildOperationButton("-", Colors.deepOrange),
-                      _buildOperationButton("×", Colors.green),
-                      _buildOperationButton("÷", Colors.purple),
+                      _buildOperationButton("*", Colors.green),
+                      _buildOperationButton("/", Colors.purple),
                     ],
                   ),
                   SizedBox(height: 16),
