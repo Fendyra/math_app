@@ -62,7 +62,7 @@ class _TeamPageState extends State<TeamPage> {
             color: Colors.white,
           ),
         ),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Colors.grey,
         centerTitle: true,
         elevation: 0,
       ),

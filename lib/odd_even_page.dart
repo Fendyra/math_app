@@ -26,7 +26,7 @@ class _OddEvenPageState extends State<OddEvenPage> {
           style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Colors.grey,
         elevation: 0,
       ),
       body: Container(

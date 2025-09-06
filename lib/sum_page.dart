@@ -30,7 +30,7 @@ class _SumPageState extends State<SumPage> {
           style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Colors.grey,
         elevation: 0,
       ),
       body: Container(
