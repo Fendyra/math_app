@@ -7,18 +7,27 @@ class OddEvenPage extends StatefulWidget {
 }
 
 class _OddEvenPageState extends State<OddEvenPage> {
+  // Controller untuk input angka.
   final numberController = TextEditingController();
+  // Variabel untuk menyimpan hasil pengecekan.
   String result = '';
 
+  // Fungsi untuk mengecek angka ganjil/genap.
   void checkNumber() {
+    // Mengambil teks dari controller dan mengubahnya menjadi integer.
     int num = int.tryParse(numberController.text) ?? 0;
+    // Mengupdate UI.
     setState(() {
+      // Logika utama: menggunakan operator modulus (%) untuk mengecek sisa bagi.
+      // Jika sisa bagi 2 adalah 0, maka genap. Selain itu, ganjil.
       result = num % 2 == 0 ? "$num adalah Genap" : "$num adalah Ganjil";
     });
   }
 
+  // Metode build() untuk UI.
   @override
   Widget build(BuildContext context) {
+    // ... (kode UI tidak diubah) ...
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -38,7 +47,6 @@ class _OddEvenPageState extends State<OddEvenPage> {
             end: Alignment.bottomCenter,
           ),
         ),
-        // child: Center(
         child: Card(
           elevation: 8,
           shadowColor: Colors.deepPurple.withOpacity(0.3),
@@ -83,7 +91,8 @@ class _OddEvenPageState extends State<OddEvenPage> {
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: checkNumber,
+                  onPressed:
+                      checkNumber, // Memanggil fungsi checkNumber saat ditekan.
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepPurple,
                     foregroundColor: Colors.white,
@@ -102,6 +111,7 @@ class _OddEvenPageState extends State<OddEvenPage> {
                   ),
                 ),
                 SizedBox(height: 20),
+                // Menampilkan hasil jika tidak kosong.
                 if (result.isNotEmpty)
                   Text(
                     result,
@@ -115,7 +125,6 @@ class _OddEvenPageState extends State<OddEvenPage> {
             ),
           ),
         ),
-        // ),
       ),
     );
   }

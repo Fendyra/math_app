@@ -7,22 +7,32 @@ class SumPage extends StatefulWidget {
 }
 
 class _SumPageState extends State<SumPage> {
+  // Controller untuk input angka.
   final numbersController = TextEditingController();
+  // Variabel untuk menyimpan hasil penjumlahan.
   String result = '';
 
+  // Fungsi untuk menghitung total penjumlahan.
   void calculateSum() {
+    // Memisahkan string input menjadi list berdasarkan koma.
     List<String> parts = numbersController.text.split(',');
     int sum = 0;
+    // Melakukan iterasi pada setiap bagian string.
     for (var p in parts) {
+      // Menambahkan angka ke total. trim() untuk menghapus spasi.
+      // int.tryParse() akan mengembalikan null jika string tidak valid, ?? 0 akan menanganinya.
       sum += int.tryParse(p.trim()) ?? 0;
     }
+    // Mengupdate UI dengan hasil.
     setState(() {
       result = "Jumlah Total: $sum";
     });
   }
 
+  // Metode build() untuk UI.
   @override
   Widget build(BuildContext context) {
+    // ... (kode UI tidak diubah) ...
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -42,7 +52,6 @@ class _SumPageState extends State<SumPage> {
             end: Alignment.bottomCenter,
           ),
         ),
-        // child: Center(
         child: Card(
           elevation: 8,
           shadowColor: Colors.deepPurple.withOpacity(0.3),
@@ -87,7 +96,8 @@ class _SumPageState extends State<SumPage> {
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: calculateSum,
+                  onPressed:
+                      calculateSum, // Memanggil fungsi calculateSum saat ditekan.
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepPurple,
                     foregroundColor: Colors.white,
@@ -106,6 +116,7 @@ class _SumPageState extends State<SumPage> {
                   ),
                 ),
                 SizedBox(height: 20),
+                // Menampilkan hasil jika tidak kosong.
                 if (result.isNotEmpty)
                   Text(
                     result,
@@ -118,7 +129,6 @@ class _SumPageState extends State<SumPage> {
               ],
             ),
           ),
-          // ),
         ),
       ),
     );

@@ -2,29 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'login_page.dart';
 
+// Fungsi main() adalah fungsi pertama yang dieksekusi saat aplikasi dijalankan.
 void main() {
+  // runApp() akan menjalankan aplikasi dengan widget yang diberikan, yaitu MyApp.
   runApp(const MyApp());
 }
 
+// MyApp adalah widget utama (root widget) dari aplikasi ini.
+// Dibuat sebagai StatelessWidget karena kontennya tidak akan berubah seiring waktu.
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // Metode build() akan dipanggil oleh Flutter untuk merender tampilan.
   @override
   Widget build(BuildContext context) {
+    // Menggunakan Google Fonts untuk tema teks dasar.
     final baseTextTheme = GoogleFonts.poppinsTextTheme();
 
+    // MaterialApp adalah widget yang membungkus seluruh aplikasi,
+    // menyediakan fungsionalitas dasar seperti routing, tema, dll.
     return MaterialApp(
-      title: 'Math App',
-      debugShowCheckedModeBanner: false,
+      title: 'Math App', // Judul aplikasi yang muncul di task manager.
+      debugShowCheckedModeBanner: false, // Menghilangkan banner debug.
       theme: ThemeData(
-        brightness: Brightness.light,
-        primaryColor: Colors.deepPurple,
-        scaffoldBackgroundColor: Colors.grey[100],
-
-        // --- Typography ---
-        textTheme: baseTextTheme,
-
-        // --- AppBar ---
+        // Tema keseluruhan aplikasi.
+        brightness: Brightness.light, // Menggunakan tema terang.
+        primaryColor: Colors.deepPurple, // Warna utama aplikasi.
+        scaffoldBackgroundColor:
+            Colors.grey[100], // Warna latar belakang default.
+        // --- Konfigurasi Tipografi ---
+        textTheme: baseTextTheme, // Menggunakan tema teks dari Google Fonts.
+        // --- Konfigurasi AppBar ---
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.deepPurple,
           elevation: 0,
@@ -36,7 +44,7 @@ class MyApp extends StatelessWidget {
           iconTheme: const IconThemeData(color: Colors.white),
         ),
 
-        // --- Input Field ---
+        // --- Konfigurasi Input Field (TextField) ---
         inputDecorationTheme: InputDecorationTheme(
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
           enabledBorder: OutlineInputBorder(
@@ -52,7 +60,7 @@ class MyApp extends StatelessWidget {
           labelStyle: TextStyle(color: Colors.grey[700]),
         ),
 
-        // --- Elevated Button ---
+        // --- Konfigurasi ElevatedButton ---
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.deepPurple,
@@ -68,7 +76,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
 
-        // --- Bottom Navigation ---
+        // --- Konfigurasi Bottom Navigation ---
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: Colors.white,
           selectedItemColor: Colors.deepPurple,
@@ -80,6 +88,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
+      // Halaman pertama yang akan ditampilkan adalah LoginPage.
       home: LoginPage(),
     );
   }

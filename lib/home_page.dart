@@ -4,8 +4,9 @@ import 'odd_even_page.dart';
 import 'sum_page.dart';
 import 'team_page.dart';
 
+// HomePage adalah StatefulWidget karena state-nya (halaman yang aktif) bisa berubah.
 class HomePage extends StatefulWidget {
-  final String username;
+  final String username; // Menerima data username dari halaman login.
   HomePage({required this.username});
 
   @override
@@ -13,20 +14,26 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // _currentIndex untuk melacak tab yang sedang aktif di BottomNavigationBar.
   int _currentIndex = 0;
+  // List yang berisi semua halaman yang akan ditampilkan.
   late List<Widget> _pages;
 
+  // initState() dipanggil sekali saat widget pertama kali dibuat.
   @override
   void initState() {
     super.initState();
+    // Menginisialisasi daftar halaman.
     _pages = [TeamPage(), MathOperationsPage(), OddEvenPage(), SumPage()];
   }
 
+  // Metode build() untuk merender UI.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
+        // Menampilkan sapaan dengan username yang diterima.
         title: Text(
           "Halo, ${widget.username}",
           style: TextStyle(
@@ -38,10 +45,9 @@ class _HomePageState extends State<HomePage> {
         centerTitle: false,
         backgroundColor: Colors.indigo,
         elevation: 4,
-        // shape: RoundedRectangleBorder(
-        // borderRadius: BorderRadius.vertical(bottom: Radius.circular(16)),
-        // ),
       ),
+      // Body akan menampilkan halaman dari list _pages sesuai dengan _currentIndex.
+      // AnimatedSwitcher memberikan efek transisi fade saat berganti halaman.
       body: AnimatedSwitcher(
         duration: Duration(milliseconds: 350),
         transitionBuilder: (child, animation) {
@@ -49,6 +55,7 @@ class _HomePageState extends State<HomePage> {
         },
         child: _pages[_currentIndex],
       ),
+      // BottomNavigationBar untuk navigasi antar halaman.
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -65,12 +72,13 @@ class _HomePageState extends State<HomePage> {
           borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
-            currentIndex: _currentIndex,
+            currentIndex: _currentIndex, // Mengatur item yang aktif.
             selectedItemColor: Colors.indigo,
             unselectedItemColor: Colors.grey,
             selectedLabelStyle: TextStyle(fontFamily: 'Poppins'),
             unselectedLabelStyle: TextStyle(fontFamily: 'Poppins'),
             items: [
+              // Daftar item navigasi.
               BottomNavigationBarItem(
                 icon: Icon(Icons.group_outlined),
                 label: "Team",
@@ -88,7 +96,9 @@ class _HomePageState extends State<HomePage> {
                 label: "Jumlah",
               ),
             ],
+            // Fungsi onTap akan dipanggil saat item navigasi ditekan.
             onTap: (index) {
+              // Mengubah state _currentIndex sesuai dengan item yang dipilih.
               setState(() {
                 _currentIndex = index;
               });

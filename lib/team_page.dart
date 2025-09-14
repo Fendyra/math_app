@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // --- Model Data untuk Anggota ---
+// Kelas ini digunakan untuk menstrukturkan data setiap anggota.
 class Anggota {
   final String nama;
   final String nim;
@@ -24,6 +25,8 @@ class TeamPage extends StatefulWidget {
 }
 
 class _TeamPageState extends State<TeamPage> {
+  // List yang berisi data-data anggota tim.
+  // Data ini didefinisikan langsung di dalam kode (hardcoded).
   final List<Anggota> groupData = [
     Anggota(
       nama: "Zakinanda Faishal Arifin",
@@ -74,11 +77,16 @@ class _TeamPageState extends State<TeamPage> {
             end: Alignment.bottomCenter,
           ),
         ),
+        // ListView.builder digunakan untuk membuat daftar yang bisa di-scroll.
+        // Ini lebih efisien daripada Column jika daftarnya panjang.
         child: ListView.builder(
           padding: const EdgeInsets.all(16),
+          // Jumlah item dalam list sama dengan panjang data groupData.
           itemCount: groupData.length,
+          // itemBuilder akan membangun widget untuk setiap item dalam data.
           itemBuilder: (context, index) {
             final anggota = groupData[index];
+            // Mengembalikan widget AnggotaCard untuk setiap anggota.
             return AnggotaCard(anggota: anggota);
           },
         ),
@@ -87,6 +95,7 @@ class _TeamPageState extends State<TeamPage> {
   }
 }
 
+// Widget kustom untuk menampilkan kartu data anggota.
 class AnggotaCard extends StatelessWidget {
   final Anggota anggota;
 
@@ -104,11 +113,6 @@ class AnggotaCard extends StatelessWidget {
         child: Row(
           children: [
             Icon(Icons.account_circle, size: 80, color: Colors.deepPurple),
-            // CircleAvatar(
-            //   radius: 35,
-            //   backgroundImage: NetworkImage(anggota.fotoUrl),
-            //   backgroundColor: Colors.deepPurple.shade100,
-            // ),
             const SizedBox(width: 16),
             Expanded(
               child: Column(

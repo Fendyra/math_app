@@ -1,44 +1,58 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
 
+// LoginPage adalah StatefulWidget karena state-nya (seperti pesan error) bisa berubah.
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+  // Controller untuk mengambil teks dari input field username dan password.
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  // Variabel untuk menyimpan pesan error jika login gagal.
   String errorMessage = '';
 
+  // Data dummy untuk username dan password.
   final Map<String, String> userData = {'Admin': '12345', 'Zakinanda': '12345'};
 
+  // Fungsi untuk mengecek apakah username dan password valid.
   bool checkLogin(String username, String password) {
+    // Mengecek apakah username ada di dalam map dan password-nya cocok.
     return userData.containsKey(username) && userData[username] == password;
   }
 
+  // Fungsi yang dipanggil saat tombol login ditekan.
   void _login() {
+    // Memanggil fungsi checkLogin dengan input dari controller.
     bool isLoginIn = checkLogin(
       _usernameController.text,
       _passwordController.text,
     );
 
+    // Jika login berhasil
     if (isLoginIn) {
+      // Navigasi ke HomePage dan mengganti halaman saat ini (agar tidak bisa kembali ke login).
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
+          // Mengirim username ke HomePage.
           builder: (context) => HomePage(username: _usernameController.text),
         ),
       );
     } else {
+      // Jika login gagal, update state untuk menampilkan pesan error.
       setState(() {
         errorMessage = 'Username atau Password salah!';
       });
     }
   }
 
+  // Metode build() untuk merender UI halaman login.
   @override
   Widget build(BuildContext context) {
+    // ... (kode UI tidak diubah, hanya logika yang diberi komentar) ...
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -106,6 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       obscureText: true,
                     ),
+                    // Menampilkan pesan error jika tidak kosong.
                     if (errorMessage.isNotEmpty) ...[
                       SizedBox(height: 12),
                       Text(
@@ -121,7 +136,8 @@ class _LoginPageState extends State<LoginPage> {
                       width: double.infinity,
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: _login,
+                        onPressed:
+                            _login, // Memanggil fungsi _login saat ditekan.
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.indigo,
                           shape: RoundedRectangleBorder(
